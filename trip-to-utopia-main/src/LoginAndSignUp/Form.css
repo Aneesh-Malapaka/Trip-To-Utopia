@@ -1,0 +1,37 @@
+.InfoBox {
+  padding: 20px;
+  letter-spacing: 1px;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.register-form {
+  margin-top: 20px;
+}
+
+.form-details {
+  margin-top: 20px;
+}
+
+.form-details > div {
+  margin: 10px;
+}
+
+.con_width{
+  max-width: 800px;
+  /* border:1px solid blue; */
+  padding:50px;
+  border-radius: 10px;
+}
+
+
+.custom_bg{
+  background:url("../../public/Images/hotel.jpg");
+  background-size: cover;
+} 
+
+.bg_white{
+  background-color: white;
+}
