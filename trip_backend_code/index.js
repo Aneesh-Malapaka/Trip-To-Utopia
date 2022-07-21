@@ -8,7 +8,7 @@ const { userRouter } = require('./routes/userRoutes');
 const orderRouter = require('./routes/orderRoutes');
 
 
-const PORT = 3002;
+const PORT = process.env.PORT || 3002;;
 
 
 app.use(cors())
@@ -17,8 +17,9 @@ app.use(userRouter)
 // app.use(dataRouter)
 app.use(orderRouter)
 
-
-mongoose.connect('mongodb://localhost:27017/trip_db',
+const CONNECTION_URL = process.env.CONNECTION_URL;
+mongoose.connect(
+  CONNECTION_URL,
 
     { autoIndex: true },
     (err) => {
