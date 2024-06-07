@@ -13,6 +13,7 @@ export default function Header() {
   const selector = useSelector((state) => state);
   // console.log(selector);
   const dispatch = useDispatch();
+  /* eslint-disable no-unused-vars */
   const [email, setEmail] = React.useState('');
   const history = useHistory();
 
