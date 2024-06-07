@@ -39,9 +39,17 @@
       "react-app",
       "react-app/jest"
     ],
-    "rules": {
-      "no-unused-vars": "warn"
-    }
+    "overrides": [
+      {
+        "files": ["*.js", "*.jsx"],
+        "env": {
+          "CI": true
+        },
+        "rules": {
+          "no-unused-vars": "warn"
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [
