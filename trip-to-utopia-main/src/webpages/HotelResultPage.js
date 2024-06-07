@@ -1,39 +1,31 @@
-import Header from '../components/Header';
-import { useEffect, useState } from 'react';
-import HotelCard from '../components/HotelCard';
-import { useLocation } from 'react-router-dom';
-import React from 'react';
+import Header from "../components/Header";
+import { useEffect, useState } from "react";
+import HotelCard from "../components/HotelCard";
+import { useLocation } from "react-router-dom";
+import React from "react";
 
 export default function HotelResultPage(props) {
   var hotels = [];
 
   const [state, setState] = useState({
-    area_name: '',
-    date_in: '',
-    date_out: '',
-    adults: '',
-    children: '',
-    rooms: '',
+    area_name: "",
+    date_in: "",
+    date_out: "",
+    adults: "",
+    children: "",
+    rooms: "",
   });
   const { area_name, date_in, date_out, adults, children, rooms } = state;
 
   const location = useLocation();
 
-  function get_hotels(
-    dest_id,
-    area_name,
-    date_in,
-    date_out,
-    adults,
-    children,
-    rooms
-  ) {
+  function get_hotels(dest_id) {
     let destID = dest_id;
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-        'X-RapidAPI-Key': '9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de',
+        "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
+        "X-RapidAPI-Key": "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
       },
     };
 
@@ -47,18 +39,17 @@ export default function HotelResultPage(props) {
       })
       .catch((err) => console.error(err));
   }
-
   useEffect(() => {
     // console.log(location.state);
     setState({ ...location.state, area_name: location.state.area_name });
 
     if (location.state.area_name.length > 0) {
       const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-          'X-RapidAPI-Key':
-            '9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de',
+          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
         },
       };
 
@@ -69,6 +60,7 @@ export default function HotelResultPage(props) {
         .then((response) => response.json())
         .then((response) => {
           var destid = response[0].dest_id;
+          get_hotels(destid);
           fetch(
             `https://booking-com.p.rapidapi.com/v1/hotels/search?checkout_date=${location.state.date_out}&units=metric&dest_id=${destid}&dest_type=city&locale=en-us&adults_number=${location.state.adults}&order_by=popularity&filter_by_currency=INR&checkin_date=${location.state.date_in}&room_number=${location.state.rooms}&children_number=${location.state.children}&page_number=0&children_ages=5%2C0&categories_filter_ids=class%3A%3A2%2Cclass%3A%3A4%2Cfree_cancellation%3A%3A1&include_adjacency=true`,
             options
@@ -82,7 +74,7 @@ export default function HotelResultPage(props) {
         })
         .catch((err) => console.error(err));
     } else {
-      console.log('Wrong input');
+      console.log("Wrong input");
     }
   }, []);
 
@@ -121,7 +113,7 @@ export default function HotelResultPage(props) {
             {hotels}
           </section>
         ) : (
-          ' '
+          " "
         )}
       </div>
     </div>
