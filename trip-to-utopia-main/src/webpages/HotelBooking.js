@@ -1,11 +1,11 @@
-import React from 'react';
-import Header from '../components/Header';
-import { useParams, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import React from "react";
+import Header from "../components/Header";
+import { useParams, useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default function HotelBooking(props) {
   const [image, setImage] = useState([]);
@@ -18,32 +18,32 @@ export default function HotelBooking(props) {
   const hist = useHistory();
   const selector = useSelector((state) => state);
   const bookHotel = (item) => {
-    if (selector.email === '') {
-      return hist.push('/loginPage');
+    if (selector.email === "") {
+      return hist.push("/loginPage");
     }
 
     axios
-      .post('http://localhost:3002/order_hotel ', {
+      .post("http://localhost:3002/order_hotel ", {
         ...item,
         email: selector.email,
       })
       .then((res) => {
-        alert('Hotel Room Reserved Successfully!!');
+        alert("Hotel Room Reserved Successfully!!");
       })
       .catch((e) => {
-        alert('ERROR WHILE PLACING ORDER');
-        console.log('ERROR WHILE PLACING ORDER');
+        alert("ERROR WHILE PLACING ORDER");
+        console.log("ERROR WHILE PLACING ORDER");
         console.log(e);
       });
   };
   useEffect(() => {
     function get_hotel_data(id) {
       const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'X-RapidAPI-Key':
-            '9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de',
-          'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+          "X-RapidAPI-Key":
+            "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
+          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
         },
       };
       try {
@@ -61,11 +61,11 @@ export default function HotelBooking(props) {
     }
     async function get_hotel_review(id) {
       const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'X-RapidAPI-Key':
-            '9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de',
-          'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+          "X-RapidAPI-Key":
+            "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
+          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
         },
       };
 
@@ -84,11 +84,11 @@ export default function HotelBooking(props) {
 
     function get_hotel_description(id) {
       const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'X-RapidAPI-Key':
-            '9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de',
-          'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+          "X-RapidAPI-Key":
+            "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
+          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
         },
       };
 
@@ -106,10 +106,10 @@ export default function HotelBooking(props) {
 
     var id = params.hotelId;
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-RapidAPI-Key': '9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de',
-        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+        "X-RapidAPI-Key": "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
+        "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
       },
     };
 
@@ -129,7 +129,7 @@ export default function HotelBooking(props) {
 
   const params = useParams();
 
-  var key = props.code;
+  // var key = props.code;
   return (
     <div className="bookPageBody">
       <Header />
@@ -147,7 +147,7 @@ export default function HotelBooking(props) {
             <div className="lower">
               <p>
                 <i className="fas fa-map-marker-alt"></i>
-                {hotelData.address} -{' '}
+                {hotelData.address} -{" "}
               </p>
               <p className="review_word">{hotelData.review_score_word} - </p>
               <p className="review--count">{hotelData.review_nr} reviews</p>
@@ -163,9 +163,9 @@ export default function HotelBooking(props) {
           <div className="left--part">
             <p className="description">
               {Object.keys(hotelData).length &&
-              hotelData.hasOwnProperty('description_translations')
-                ? hotelData.description_translations.description
-                : 'NO Description Provided'}
+              hotelData.hasOwnProperty("description_translations")
+                ? desc
+                : "NO Description Provided"}
             </p>
           </div>
           <div className="right--part">
@@ -189,15 +189,15 @@ export default function HotelBooking(props) {
                         <p className="pers--name">{item.author.name}- </p>
                         <p className="pers--type">{item.author.type_string}</p>
                         <p className="pers--purpose">
-                          - {item.travel_purpose} &nbsp;{' '}
+                          - {item.travel_purpose} &nbsp;{" "}
                         </p>
                         <p className="pers--rating">
-                          - {item.average_score.toFixed(1)}{' '}
+                          - {item.average_score.toFixed(1)}{" "}
                           <FontAwesomeIcon
                             className="rating--ico"
                             icon={faStar}
                           />
-                          &nbsp;{' '}
+                          &nbsp;{" "}
                         </p>
                       </div>
                       <div className="rev--date">
@@ -213,28 +213,28 @@ export default function HotelBooking(props) {
                       <div className="rev--pros revv">
                         <p className="rev--head">
                           Pros:&nbsp;
-                          {item.pros !== '' ? (
+                          {item.pros !== "" ? (
                             <span>{item.pros}</span>
                           ) : (
                             <span
                               style={{
-                                color: 'red',
+                                color: "red",
                               }}
                             >
                               Not mentioned
                             </span>
-                          )}{' '}
+                          )}{" "}
                         </p>
                       </div>
                       <div className="rev--cons revv">
                         <p className="rev--head">
                           Cons: &nbsp;
-                          {item.cons !== '' ? (
+                          {item.cons !== "" ? (
                             <span>{item.cons}</span>
                           ) : (
                             <span
                               style={{
-                                color: 'red',
+                                color: "red",
                               }}
                             >
                               Not mentioned
@@ -245,14 +245,14 @@ export default function HotelBooking(props) {
                       <div className="rev--roomInfo revv">
                         <p className="rev--head">
                           Room Stayed:&nbsp;
-                          <span>{item.stayed_room_info.room_name}</span>{' '}
+                          <span>{item.stayed_room_info.room_name}</span>{" "}
                         </p>
                       </div>
                     </div>
                   </div>
                 );
               })
-            : ' '}
+            : " "}
         </div>
       </div>
     </div>
