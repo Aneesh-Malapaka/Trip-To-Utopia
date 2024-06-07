@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 const queryString = require('query-string');
-
+/* eslint-disable no-unused-vars */
 const airportStaticData = [
   {
     icao: 'VOHS',
