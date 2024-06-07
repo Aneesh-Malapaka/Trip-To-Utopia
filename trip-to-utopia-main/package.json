@@ -46,12 +46,11 @@
           "CI": true,
           "browser": true,
           "node": true,
-          "ES6": true,
+          "ES6": true
         },
         "rules": {
           "no-unused-vars": "warn"
-        },
-        
+        }
       }
     ]
   },
