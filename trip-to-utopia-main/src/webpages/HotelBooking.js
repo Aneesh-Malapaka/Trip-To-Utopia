@@ -9,21 +9,21 @@ import axios from "axios";
 
 export default function HotelBooking(props) {
   const [image, setImage] = useState([]);
-  let img_list = image;
-
   const [hotelData, setHotelData] = useState({});
   const [review, setReview] = useState({});
-  const [desc, setDesc] = useState({});
+  const [desc, setDesc] = useState("");
 
   const hist = useHistory();
   const selector = useSelector((state) => state);
+  const params = useParams();
+
   const bookHotel = (item) => {
     if (selector.email === "") {
       return hist.push("/loginPage");
     }
 
     axios
-      .post("http://localhost:3002/order_hotel ", {
+      .post("http://localhost:3002/order_hotel", {
         ...item,
         email: selector.email,
       })
@@ -36,75 +36,9 @@ export default function HotelBooking(props) {
         console.log(e);
       });
   };
+
   useEffect(() => {
-    function get_hotel_data(id) {
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
-          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
-        },
-      };
-      try {
-        fetch(
-          `https://booking-com.p.rapidapi.com/v1/hotels/data?hotel_id=${id}&locale=en-gb`,
-          options
-        )
-          .then((res) => res.json())
-          .then((res) => {
-            setHotelData(res);
-          });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    async function get_hotel_review(id) {
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
-          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
-        },
-      };
-
-      try {
-        const res_review = await fetch(
-          `https://booking-com.p.rapidapi.com/v1/hotels/reviews?sort_type=SORT_MOST_RELEVANT&locale=en-gb&hotel_id=${id}&language_filter=en-gb%2Cde%2Cfr&customer_type=solo_traveller%2Creview_category_group_of_friends`,
-          options
-        );
-        const review_json = await res_review.json();
-
-        setReview(review_json);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    function get_hotel_description(id) {
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
-          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
-        },
-      };
-
-      fetch(
-        `https://booking-com.p.rapidapi.com/v1/hotels/description?hotel_id=${id}&locale=en-gb`,
-        options
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          setDesc(response.description);
-          // console.log(response.description)
-        })
-        .catch((err) => console.error(err));
-    }
-
-    var id = params.hotelId;
+    const id = params.hotelId;
     const options = {
       method: "GET",
       headers: {
@@ -113,23 +47,64 @@ export default function HotelBooking(props) {
       },
     };
 
-    fetch(
-      `https://booking-com.p.rapidapi.com/v1/hotels/photos?locale=en-gb&hotel_id=${id}`,
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        setImage(response);
-      })
-      .catch((err) => console.error(err));
+    const get_hotel_data = async (id) => {
+      try {
+        const res = await fetch(
+          `https://booking-com.p.rapidapi.com/v1/hotels/data?hotel_id=${id}&locale=en-gb`,
+          options
+        );
+        const data = await res.json();
+        setHotelData(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const get_hotel_review = async (id) => {
+      try {
+        const res_review = await fetch(
+          `https://booking-com.p.rapidapi.com/v1/hotels/reviews?sort_type=SORT_MOST_RELEVANT&locale=en-gb&hotel_id=${id}&language_filter=en-gb%2Cde%2Cfr&customer_type=solo_traveller%2Creview_category_group_of_friends`,
+          options
+        );
+        const review_json = await res_review.json();
+        setReview(review_json);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const get_hotel_description = async (id) => {
+      try {
+        const res = await fetch(
+          `https://booking-com.p.rapidapi.com/v1/hotels/description?hotel_id=${id}&locale=en-gb`,
+          options
+        );
+        const data = await res.json();
+        setDesc(data.description);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const get_hotel_images = async (id) => {
+      try {
+        const res = await fetch(
+          `https://booking-com.p.rapidapi.com/v1/hotels/photos?locale=en-gb&hotel_id=${id}`,
+          options
+        );
+        const data = await res.json();
+        setImage(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     get_hotel_data(id);
     get_hotel_review(id);
     get_hotel_description(id);
-  }, []);
+    get_hotel_images(id);
+  }, [params.hotelId]);
 
-  const params = useParams();
-
-  // var key = props.code;
   return (
     <div className="bookPageBody">
       <Header />
@@ -154,7 +129,7 @@ export default function HotelBooking(props) {
             </div>
           </div>
           <div className="imgContainer">
-            {img_list.slice(0, 10).map((item, index) => {
+            {image.slice(0, 10).map((item, index) => {
               return <img key={index} src={item.url_1440} alt="" />;
             })}
           </div>
