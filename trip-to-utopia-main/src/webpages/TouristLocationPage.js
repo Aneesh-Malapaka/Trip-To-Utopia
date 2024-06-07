@@ -8,7 +8,6 @@ export default function TouristLocationPage(props) {
   var places,
     cplaces = [];
 
-  let api = props.code;
   function get_nearby_places(id) {
     console.log(id);
     const options = {
