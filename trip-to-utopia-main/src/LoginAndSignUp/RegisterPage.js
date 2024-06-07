@@ -1,54 +1,54 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
-import './Form.css';
+import axios from "axios";
+import React from "react";
+import { Form } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import "./Form.css";
 
 const RegisterPage = (props) => {
   const name = React.createRef();
   const email = React.createRef();
   const password = React.createRef();
-  const confirmPassword = React.createRef();
+  // const confirmPassword = React.createRef();
   const history = useHistory();
 
   const submit = () => {
     axios
-      .post('http://localhost:3002/signup', {
+      .post("http://localhost:3002/signup", {
         username: name.current.value,
         password: password.current.value,
         email: email.current.value,
       })
       .then((res) => {
-        localStorage.removeItem('token');
+        localStorage.removeItem("token");
         // console.log(res, 'SIGNUP');
-        alert('User signed up');
+        alert("User signed up");
 
-        history.push('/loginpage');
+        history.push("/loginpage");
       })
       .catch((e) => {
         // console.log(e);
-        alert('Error Signing user');
+        alert("Error Signing user");
       });
   };
 
-  const [state, setState] = useState({
-    username: '',
-    email: '',
-    pass: '',
-  });
+  // const [state, setState] = useState({
+  //   username: '',
+  //   email: '',
+  //   pass: '',
+  // });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setState((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
 
   return (
     <div
       className="d-flex  align-items-center justify-content-center  custom_bg"
-      style={{ height: '100vh' }}
+      style={{ height: "100vh" }}
     >
       <div className="con_width  bg_white">
         <h2>Registration Form</h2>
@@ -90,8 +90,8 @@ const RegisterPage = (props) => {
           <br />
           <br />
           <div className="text-center h6 text-muted">
-            Already have an account?{' '}
-            <Link to={{ pathname: '/loginPage' }}>Login here</Link>
+            Already have an account?{" "}
+            <Link to={{ pathname: "/loginPage" }}>Login here</Link>
           </div>
         </div>
       </div>
