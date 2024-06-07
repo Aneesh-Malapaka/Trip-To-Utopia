@@ -1,18 +1,18 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { Form as div } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import axios from "axios";
+import React, { useState } from "react";
+import { Form as div } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import './Form.css';
+import "./Form.css";
 const LoginPage = (props) => {
   const email = React.createRef();
   const password = React.createRef();
   const dispatch = useDispatch();
 
   const [state, setState] = useState({
-    email: '',
-    Password: '',
+    email: "",
+    Password: "",
   });
 
   const history = useHistory();
@@ -23,31 +23,32 @@ const LoginPage = (props) => {
       [name]: value,
     }));
   };
-
+  const initState = state;
+  console.log(initState);
   const login = () => {
-    console.log('LOGIN CLICKED');
+    console.log("LOGIN CLICKED");
     axios
-      .post('http://localhost:3002/login', {
+      .post("http://localhost:3002/login", {
         email: email.current.value,
         password: password.current.value,
       })
       .then((res) => {
-        localStorage.setItem('token', res.data.token);
-        console.log(localStorage.getItem('token'));
-        dispatch({ type: 'add_email', payload: res.data.email });
+        localStorage.setItem("token", res.data.token);
+        console.log(localStorage.getItem("token"));
+        dispatch({ type: "add_email", payload: res.data.email });
         setTimeout(() => {
-          history.push('/');
+          history.push("/");
         }, 100);
       })
       .catch((err) => {
-        alert('Password/Username Does not exist!!');
+        alert("Password/Username Does not exist!!");
       });
   };
 
   return (
     <div
       className="d-flex text-center align-items-center justify-content-center custom_bg "
-      style={{ height: '100vh' }}
+      style={{ height: "100vh" }}
     >
       <div className="con_width bg_white">
         <h2>Login Form</h2>
@@ -59,6 +60,7 @@ const LoginPage = (props) => {
             placeholder="Enter email"
             name="email"
             ref={email}
+            onChange={handleInputChange}
           />
         </div.Group>
 
@@ -80,7 +82,7 @@ const LoginPage = (props) => {
             <Link
               className="btn btn-primary btn-lg"
               to={{
-                pathname: '/registerPage',
+                pathname: "/registerPage",
               }}
             >
               Register
