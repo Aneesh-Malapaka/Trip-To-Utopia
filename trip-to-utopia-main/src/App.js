@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
 
-var apiKey = '43fadc81d6msh099c62fd7934fe6p1507a4jsn70ceccf6d49b';
+const apiKey = process.env.REACT_APP_API_KEY;
 function App() {
   return (
     <div>

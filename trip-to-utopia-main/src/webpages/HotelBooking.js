@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-export default function HotelBooking(props) {
+export default function HotelBooking({ code }) {
   const [image, setImage] = useState([]);
   const [hotelData, setHotelData] = useState({});
   const [review, setReview] = useState({});
@@ -42,7 +42,7 @@ export default function HotelBooking(props) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "9b03cfc029msh2ebb52c2f5c005cp1299f3jsn8fe51ec8b8de",
+        "X-RapidAPI-Key": code,
         "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
       },
     };
@@ -103,7 +103,7 @@ export default function HotelBooking(props) {
     get_hotel_review(id);
     get_hotel_description(id);
     get_hotel_images(id);
-  }, [params.hotelId]);
+  }, [params.hotelId, code]);
 
   return (
     <div className="bookPageBody">
@@ -138,7 +138,7 @@ export default function HotelBooking(props) {
           <div className="left--part">
             <p className="description">
               {Object.keys(hotelData).length &&
-              hotelData.hasOwnProperty("description_translations")
+                hotelData.hasOwnProperty("description_translations")
                 ? desc
                 : "NO Description Provided"}
             </p>
@@ -157,76 +157,76 @@ export default function HotelBooking(props) {
           <h3 className="title">Reviews</h3>
           {review.result
             ? review.result.slice(0, 6).map((item, index) => {
-                return (
-                  <div className="review--box" id={index}>
-                    <div className="line1">
-                      <div className="pers--info">
-                        <p className="pers--name">{item.author.name}- </p>
-                        <p className="pers--type">{item.author.type_string}</p>
-                        <p className="pers--purpose">
-                          - {item.travel_purpose} &nbsp;{" "}
-                        </p>
-                        <p className="pers--rating">
-                          - {item.average_score.toFixed(1)}{" "}
-                          <FontAwesomeIcon
-                            className="rating--ico"
-                            icon={faStar}
-                          />
-                          &nbsp;{" "}
-                        </p>
-                      </div>
-                      <div className="rev--date">
-                        <p>{item.date}</p>
-                      </div>
+              return (
+                <div className="review--box" id={index}>
+                  <div className="line1">
+                    <div className="pers--info">
+                      <p className="pers--name">{item.author.name}- </p>
+                      <p className="pers--type">{item.author.type_string}</p>
+                      <p className="pers--purpose">
+                        - {item.travel_purpose} &nbsp;{" "}
+                      </p>
+                      <p className="pers--rating">
+                        - {item.average_score.toFixed(1)}{" "}
+                        <FontAwesomeIcon
+                          className="rating--ico"
+                          icon={faStar}
+                        />
+                        &nbsp;{" "}
+                      </p>
                     </div>
-                    <div className="line2">
-                      <div className="rev--title revv">
-                        <p className="rev--head">
-                          Title:&nbsp;<span>{item.title}</span>
-                        </p>
-                      </div>
-                      <div className="rev--pros revv">
-                        <p className="rev--head">
-                          Pros:&nbsp;
-                          {item.pros !== "" ? (
-                            <span>{item.pros}</span>
-                          ) : (
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              Not mentioned
-                            </span>
-                          )}{" "}
-                        </p>
-                      </div>
-                      <div className="rev--cons revv">
-                        <p className="rev--head">
-                          Cons: &nbsp;
-                          {item.cons !== "" ? (
-                            <span>{item.cons}</span>
-                          ) : (
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              Not mentioned
-                            </span>
-                          )}
-                        </p>
-                      </div>
-                      <div className="rev--roomInfo revv">
-                        <p className="rev--head">
-                          Room Stayed:&nbsp;
-                          <span>{item.stayed_room_info.room_name}</span>{" "}
-                        </p>
-                      </div>
+                    <div className="rev--date">
+                      <p>{item.date}</p>
                     </div>
                   </div>
-                );
-              })
+                  <div className="line2">
+                    <div className="rev--title revv">
+                      <p className="rev--head">
+                        Title:&nbsp;<span>{item.title}</span>
+                      </p>
+                    </div>
+                    <div className="rev--pros revv">
+                      <p className="rev--head">
+                        Pros:&nbsp;
+                        {item.pros !== "" ? (
+                          <span>{item.pros}</span>
+                        ) : (
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            Not mentioned
+                          </span>
+                        )}{" "}
+                      </p>
+                    </div>
+                    <div className="rev--cons revv">
+                      <p className="rev--head">
+                        Cons: &nbsp;
+                        {item.cons !== "" ? (
+                          <span>{item.cons}</span>
+                        ) : (
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            Not mentioned
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                    <div className="rev--roomInfo revv">
+                      <p className="rev--head">
+                        Room Stayed:&nbsp;
+                        <span>{item.stayed_room_info.room_name}</span>{" "}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
             : " "}
         </div>
       </div>

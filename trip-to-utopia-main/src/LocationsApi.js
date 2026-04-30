@@ -85,7 +85,7 @@ export function getAirport(searchParams) {
     url: 'https://aerodatabox.p.rapidapi.com/airports/search/term',
     params: { q: searchParams, limit: '10' },
     headers: {
-      'X-RapidAPI-Key': '43fadc81d6msh099c62fd7934fe6p1507a4jsn70ceccf6d49b',
+      'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
       'X-RapidAPI-Host': 'aerodatabox.p.rapidapi.com',
     },
   };
