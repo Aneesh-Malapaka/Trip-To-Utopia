@@ -2,7 +2,7 @@
 //   const options = {
 //     method: 'GET',
 //     headers: {
-//       'X-RapidAPI-Key': '25823ba57dmsh5ae0a22908fe6bfp14b8e4jsn9a46d658e006',
+//       'X-RapidAPI-Key': '',
 //       'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
 //     },
 //   };
@@ -26,7 +26,7 @@
 //     method: 'GET',
 //     headers: {
 //       'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-//       'X-RapidAPI-Key': '25823ba57dmsh5ae0a22908fe6bfp14b8e4jsn9a46d658e006',
+//       'X-RapidAPI-Key': '',
 //     },
 //   };
 
@@ -57,7 +57,7 @@
 //     method: 'GET',
 //     headers: {
 //       'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-//       'X-RapidAPI-Key': '25823ba57dmsh5ae0a22908fe6bfp14b8e4jsn9a46d658e006',
+//       'X-RapidAPI-Key': '',
 //     },
 //   };
 
